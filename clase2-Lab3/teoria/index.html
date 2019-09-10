@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./CSS/estilos.css">
+    <script src="./JS/script.js"></script>
+    <title>Controles</title>
+
+</head>
+<body>
+    <form action="pagina_2.html">
+        <fieldset>
+            <legend>Datos Personales</legend>
+
+            <div>
+                <label for="txtNombre">Nombre:</label>
+                <input type="text" id="txtNombre" name="Nombre" required>
+            </div>
+            <div>
+                <label for="txtPassword">Constraseña:</label>
+                <input type="password" id="txtPassword" name="Password" title="un mensaje" placeholder="ingrese algo aqui"  required>
+            </div>
+            <div>
+                <label for="txtEmail">Email:</label>
+                <input type="email" id="txtEmail" name="Email" required>
+            </div>
+            <div>
+                <label for="txtEdad">Edad:</label>
+                <input type="range" id="txtEdad" name="Edad" min="18" max="65" required>
+            </div>
+
+            <div>
+            <label for="cboPais">pais</label>
+            <select name="pais" id="cboPais" multiple>
+                    <option value=""selected >elija un pais</option>
+                <optgroup label="America">
+                    <option value="ar">Argentina</option>
+                    <option value="br">Brasil</option>
+                    <option value="ch">Chile</option>
+                    <option value="pe">Peru</option>
+                </optgroup>
+                <optgroup label="Europa">
+                    <option value="es">España</option>
+                    <option value="it">Italia</option>
+                </optgroup>
+
+            </select>
+            </div>
+            <fieldset>
+                <legend>Genero</legend>
+                <input type="radio" name="sexo" id="rdoMasculino"><label for="rdoMasculino">Masculino</label>
+                <input type="radio" name="sexo" id="rdoFemenino" checked><label for="rdoFemenino">Femenino</label>
+            </fieldset>
+            <fieldset>
+                <legend>Hobbies</legend>
+                <input type="checkbox" id="chkSki"><label for="chkSki">Ski</label>
+                <input type="checkbox" id="chkBici"><label for="chkBici">bici</label>
+                <input type="checkbox" id="chkKayak"><label for="chkKayak">kayak</label>
+            </fieldset>
+        
+            </fieldset>
+        <label for="txtComentarios">Comentarios</label>
+        <div>
+            <textarea name="" id="txtComentarios" cols="30" rows="10"></textarea>
+        </div>
+
+        <div>
+            <input type="submit" value="login">
+            <input type="reset" value="reset">
+        </div>
+    </form>
+    <button id="btnSaludar">Saludar</button>
+
+</body>
+</html>
