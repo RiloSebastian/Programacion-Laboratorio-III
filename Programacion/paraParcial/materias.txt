@@ -1,0 +1,1 @@
+[{"nombre":"laboratorio3","codigo":"10933","cupo":"56","aula":"205"}]
