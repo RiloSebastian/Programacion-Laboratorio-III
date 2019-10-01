@@ -1,0 +1,1 @@
+[{"legajo":"7","email":"4","clave":"65","nombre":"y","fotoUno":".\/fotos\/7_1.jpg","fotoDos":".\/fotos\/7_2.jpg","foto":null}]
