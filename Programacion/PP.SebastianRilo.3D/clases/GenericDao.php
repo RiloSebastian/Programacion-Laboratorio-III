@@ -94,10 +94,12 @@ class GenericDao{
         if(file_exists($this->archivo))
         {
             $objects = json_decode($this->listar());
-        }
-        foreach ($objects as $object) {
-            if ($object->$idKey == $idValue) {
-                return $object;
+            foreach ($objects as $object) 
+            {
+                if ($object->$idKey == $idValue) 
+                {
+                    return $object;
+                }
             }
         }
         return null;

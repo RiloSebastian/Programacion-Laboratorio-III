@@ -1,9 +1,9 @@
 <?php
 class Usuario{
     public $legajo;
+    public $nombre;
     public $email;
     public $clave;
-    public $nombre;
     public $fotoUno;
     public $fotoDos;
 

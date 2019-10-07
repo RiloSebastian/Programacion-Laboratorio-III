@@ -1,10 +1,13 @@
 <?php
 require_once "./controladores/controladorUsuario.php";
+require_once "./controladores/controladorRegistro.php";
 require_once "./clases/usuario.php";
 require_once "./clases/GenericDao.php";
+date_default_timezone_set("America/Argentina/Buenos_Aires");
 
 $caso= $_SERVER["REQUEST_METHOD"];
 $Usuarios= new controladorUsuario("./usuarios.txt");
+$registros= new controladorRegistro("./info.log");
 $casePostman=null;
 switch ($caso){
     case "POST":
@@ -54,6 +57,28 @@ switch ($caso){
             }
             
             break;
+            case "verUsuarios":
+            $Usuarios->mostrar();
+            break;
+            case "verUsuario":
+            if(isset($_GET["legajo"]))
+            {
+                $Usuarios->mostrar($_GET["legajo"]);
+            }
+            else
+            {
+                echo "ingrese el legajo del usuario que quiera mostrar";
+            }
+            break;
+            case "logs":
+            if(isset($_GET["fecha"]))
+            {
+                $registros->mostrarRegistros($_GET["fecha"]);
+            }
+            else
+            {
+                echo "ingresar una fecha";
+            }
         }
     }
     else
@@ -71,9 +96,7 @@ switch ($caso){
     {
         $casePostman = $_GET["caso"];
     }
-    $fecha = date("Y-M-D G:i");
-    $log=fopen("./info.log","a");
-    fwrite($log,"consulta:"."$caso"." - caso:"."$casePostman"."-fecha:"."$fecha".PHP_EOL);
-    fclose($log);
+    $registros->cargarRegistro($caso,$casePostman);
+
 
 ?>
