@@ -29,7 +29,6 @@ class controladorRegistro
     {
         $fecha= explode("-",$fechaFiltro);
         $fechaUnix= mktime((int)$fecha[3],(int)$fecha[4],0,(int)$fecha[1],(int)$fecha[2],(int)$fecha[0]);
-        var_dump($fecha);
 
         $registros= json_decode($this->archivoRegistro->listar());
         foreach($registros as $individual)
@@ -41,7 +40,6 @@ class controladorRegistro
 
             if($fechaRegistroUnix > $fechaUnix)
             {
-                var_dump($fechaRegistroUnix);
                 echo json_encode($individual).PHP_EOL;
             }
         }

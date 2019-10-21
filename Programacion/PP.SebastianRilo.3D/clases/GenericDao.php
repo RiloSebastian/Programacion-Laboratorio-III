@@ -31,12 +31,22 @@ class GenericDao{
     public function listar()
     {
         try {
-            $archivo = fopen($this->archivo, "r");
-            return fread($archivo, filesize($this->archivo));
+            if(file_exists($this->archivo))
+            {
+                $archivo = fopen($this->archivo, "r");
+                return fread($archivo, filesize($this->archivo));
+            }
+            else
+            {
+                return null;
+            }
         } catch (Exception $e) {
             throw new Exception("El archivo No se pudo listar", 0, $e);
         } finally {
-            fclose($archivo);
+            if(file_exists($this->archivo))
+            {
+                fclose($archivo);
+            }
         }
     }
 
@@ -71,48 +81,51 @@ class GenericDao{
         try {
             $retorno = false;
             $objetos = json_decode($this->listar());
-            $archivo = fopen($this->archivo, "w");
-            foreach ($objetos as $objeto) {
-                if ($objeto->$nombreClave == $valor) {
-                    $objeto->$claveModificada = $valorModificado;
-                    $retorno = true;
-                    break;
+            if($objetos != null)
+            {
+                $archivo = fopen($this->archivo, "w");
+                foreach ($objetos as $objeto)
+                {
+                    if ($objeto->$nombreClave == $valor) {
+                        $objeto->$claveModificada = $valorModificado;
+                        $retorno = true;
+                        break;
+                    }
                 }
+                fwrite($archivo, json_encode($objetos));
             }
-            fwrite($archivo, json_encode($objetos));
             return $retorno;
         } catch (Exception $e) {
             throw new Exception("El objeto no se pudo modificar", 0, $e);
         } finally {
-            fclose($archivo);
+            if($objetos != null)
+            {
+                fclose($archivo);
+            }
         }
     }
 
     public function obtenerPorId($idKey, $idValue)
     {
-        $objects = null;
-        if(file_exists($this->archivo))
+        $objects = json_decode($this->listar());
+        if($objects != null)
         {
-            $objects = json_decode($this->listar());
-            foreach ($objects as $object) 
+           foreach($objects as $object) 
             {
                 if ($object->$idKey == $idValue) 
                 {
                     return $object;
                 }
-            }
+            } 
         }
+        
         return null;
     }
 
     public function getByAttribute($attrKey, $attrValue)
     {
         try {
-            $objects = null;
-            if(file_exists($this->archivo))
-             {
             $objects = json_decode($this->listar());
-            }
             $retorno = array();
             foreach ($objects as $object) {
                 if ($object->$attrKey == $attrValue) {
@@ -131,11 +144,7 @@ class GenericDao{
     public function getByAttributeCaseInsensitive($attrKey, $attrValue)
     {
         try {
-            $objects = null;
-           if(file_exists($this->archivo))
-            {
-                $objects = json_decode($this->listar());
-            }
+            $objects = json_decode($this->listar());
             $retorno = array();
             foreach ($objects as $object) {
                 if (strtolower($object->$attrKey) == strtolower($attrValue)) {

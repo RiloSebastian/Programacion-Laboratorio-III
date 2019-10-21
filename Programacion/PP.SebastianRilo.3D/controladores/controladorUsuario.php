@@ -41,7 +41,7 @@ class ControladorUsuario
         {
             $this->imagenBackUP($FILES,$POST,1);
             $fotoUno = $this->moverImagen($FILES["fotoUno"],1,$POST["legajo"]);
-            $rta = $this->archivoUsuario->modificar("legajo", $POST["legajo"], "fotoUno", $FILES["fotoUno"]);
+            $rta = $this->archivoUsuario->modificar("legajo", $POST["legajo"], "fotoUno", $fotoUno);
             if ($rta === true) 
             {
                 echo 'foto 1 modificada';
@@ -54,7 +54,7 @@ class ControladorUsuario
         {
             $this->imagenBackUP($FILES,$POST,2);
             $fotoDos = $this->moverImagen($FILES["fotoDos"],2,$POST["legajo"]);
-            $rta = $this->archivoUsuario->modificar("legajo", $POST["legajo"], "fotoDos", $FILES["fotoDos"]);
+            $rta = $this->archivoUsuario->modificar("legajo", $POST["legajo"], "fotoDos", $fotoDos);
             if ($rta === true) 
             {
                 echo 'foto 2 modificada';
@@ -63,16 +63,9 @@ class ControladorUsuario
                 echo 'Hubo un error al modificar la imagen';
             }
         }   
-        if (isset($POST["nombre"])) {
-            $rta = $this->alumnosDao->modificar("legajo", $POST["legajo"], "nombre", $POST["nombre"]);
-            if ($rta === true) {
-                echo PHP_EOL . 'Nombre modificado';
-            } else {
-                echo PHP_EOL . 'Hubo un error al modificar el nombre';
-            }
-        }
+        
         if (isset($POST["clave"])) {
-            $rta = $this->alumnosDao->modificar("legajo", $POST["legajo"], "clave", $POST["clave"]);
+            $rta = $this->archivoUsuario->modificar("legajo", $POST["legajo"], "clave", $POST["clave"]);
             if ($rta === true) 
             {
                 echo PHP_EOL . 'clave modificada';
@@ -81,8 +74,16 @@ class ControladorUsuario
                 echo PHP_EOL . 'Hubo un error al modificar la clave';
             }
         }
+        if (isset($POST["nombre"])) {
+            $rta = $this->archivoUsuario->modificar("legajo", $POST["legajo"], "nombre", $POST["nombre"]);
+            if ($rta === true) {
+                echo PHP_EOL . 'Nombre modificado';
+            } else {
+                echo PHP_EOL . 'Hubo un error al modificar el nombre';
+            }
+        }
         if (isset($POST["email"])) {
-            $rta = $this->alumnosDao->modificar("legajo", $POST["legajo"], "email", $POST["email"]);
+            $rta = $this->archivoUsuario->modificar("legajo", $POST["legajo"], "email", $POST["email"]);
             if ($rta === true) 
             {
                 echo PHP_EOL . 'email modificado';
@@ -95,7 +96,7 @@ class ControladorUsuario
 
     function imagenBackUP($FILES,$POST,$ordenFoto)
     {
-            $hoy = date("Y-n-d H:i");
+            $hoy = date("Y-n-d-H-i");
             if($ordenFoto ==1)
             {
                 $rutaAntigua = ($this->archivoUsuario->obtenerPorId("legajo", $POST["legajo"]))->fotoUno;   
@@ -104,11 +105,14 @@ class ControladorUsuario
             {
                 $rutaAntigua = ($this->archivoUsuario->obtenerPorId("legajo", $POST["legajo"]))->fotoDos;
             }  
-            $array = explode(".", $rutaAntigua);
+            $array = explode("." , $rutaAntigua);
+            foreach($element as )
+            {
+                
+            }
+
             $rutaNueva = "fotos/backUpFotos/".$POST["legajo"]."_".$ordenFoto."_".$hoy.".".end($array);
-            var_dump($rutaAntigua);
-            var_dump($rutaNueva);
-            rename($rutaAntigua, $rutaNueva);
+            rename($rutaAntigua,$rutaNueva);
     }
 
     function moverImagen($foto,$ordenFoto,$legajo)
@@ -127,12 +131,19 @@ class ControladorUsuario
         }
     }
 
-    public function login($legajo, $clave)
+    public function login($legajo, $key)
     {
         $usuario= json_decode($this->archivoUsuario->getByAttributeCaseInsensitive("legajo",$legajo));
-        
-        if($usuario[0]->clave == $clave){
+
+        echo $usuario[0]->clave.PHP_EOL;
+        echo $key.PHP_EOL;
+
+        if($usuario[0]->clave == $key){
             return json_encode($usuario);
+        }
+        else
+        {
+            return "clave incorrecta";
         }
     }
 
