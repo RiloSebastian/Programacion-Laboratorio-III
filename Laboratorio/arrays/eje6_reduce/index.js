@@ -15,7 +15,13 @@ console.log(prueba); */
 /* let nombres = array.filter(elemento => elemento.includes('u'));
 console.log(nombres);
 */
+
+//reduce es una funcion que trae el valor anterior provisto por la funcion callback y lo utiliza
+//como parametro en la siguiente llamada a esta funcion. especialmente util para acumuladores y contadores
+//pero tambien se le puede dar otros usos como sacar un promedio.
+//reduce recibe hasta 4 parametros en el orden:
 //primero valor anterior, 2do valor actual, indice , vector.
+
 let suma = numeros.reduce((acumulador,elemento)=> acumulador+elemento , 0);
 console.log(suma);
 let promedio = numeros.reduce((acumulador,elemento)=> acumulador+elemento ) / numeros.length;

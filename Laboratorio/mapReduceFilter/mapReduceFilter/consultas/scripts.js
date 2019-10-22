@@ -11,12 +11,8 @@
  
  soluciones.usuariosFemeninos = function(usuarios){
      return usuarios
-     .filter(function(user){
-         return user.genero === 'Female';
-     })
-     .map(function(user){
-         return user.nombre;
-     });
+     .filter(user => user.genero === "female")
+            .map(user => user.nombre);
  }
  
  //console.log(soluciones.usuariosFemeninos(data));

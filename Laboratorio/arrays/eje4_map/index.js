@@ -1,5 +1,7 @@
 let array = ["juan", "ana", "julia", "adrian", "lucia"];
 //some (recive callback, lo que retorna es un booleano)y every(si para todos los elementos fue true)
+//map modifica todos los elementos del array, pero el cambio solo es temporal a no ser que estos elementos
+//se guarde en otro array como el siguiente caso:
 let numeros = [1,2,3,4,5,6];
 
 let cuadrados;

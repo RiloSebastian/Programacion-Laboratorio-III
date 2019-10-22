@@ -17,6 +17,8 @@ console.log(promedioEdad);
 let repetidos = [1,1,2,3,3,4,4,5,1,5];
 
 let x = new Set(repetidos);
+
+//[...] es para copiar una los valores de un vector sin tomar la misma referencia 
 let y = [...new Set(repetidos)];
 
 console.log(x);
